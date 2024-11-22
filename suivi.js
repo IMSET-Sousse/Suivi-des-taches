@@ -1,7 +1,6 @@
 document.getElementById('addTaskBtn').addEventListener('click', function () {
     const taskInput = document.getElementById('taskInput');
     const taskText = taskInput.value.trim();
-
     if (taskText !== "") {
         const task = document.createElement('div');
         task.classList.add('task');
