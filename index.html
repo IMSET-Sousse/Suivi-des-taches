@@ -1,61 +1,165 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de Gestion de Projets</title>
+    <title>Trello-like To-Do List</title>
     <!-- Bootstrap CSS -->
-    <link href="suivi.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8i6Y8hE6c1k3fZsJfXg6qD/JJ5d1Z8gFfQd2kElhPMiZ6jib0wTr7bxW6p" crossorigin="anonymous">
+    <style>
+        .board-column {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            min-height: 300px;
+            margin-right: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .board-column-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .task {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .task.dragging {
+            opacity: 0.5;
+        }
+
+        .column-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .task-form {
+            margin-bottom: 20px;
+        }
+
+        .task-input {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Gestion de Projets</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="fonctionnalite.html">Fonctionnalité</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="solution.html">Solution</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="offre.html">Offre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tarifs.html">Tarifs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ressources.html">Ressources</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="todo.html">To-Do List</a>
-                    </li>
-                </ul>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Trello-like To-Do List</h1>
+
+        <!-- Task input form -->
+        <div class="task-form mb-4">
+            <input type="text" class="form-control task-input" id="taskInput" placeholder="Enter a new task">
+            <button class="btn btn-primary mt-2" id="addTaskBtn">Add Task</button>
+        </div>
+
+        <!-- Board with columns (To Do, In Progress, Completed) -->
+        <div class="column-container">
+            <!-- To Do Column -->
+            <div class="board-column" id="toDoColumn">
+                <div class="board-column-header">To Do</div>
+                <div id="toDoList"></div>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="board-column" id="inProgressColumn">
+                <div class="board-column-header">In Progress</div>
+                <div id="inProgressList"></div>
+            </div>
+
+            <!-- Completed Column -->
+            <div class="board-column" id="completedColumn">
+                <div class="board-column-header">Completed</div>
+                <div id="completedList"></div>
             </div>
         </div>
-    </nav>
-
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Bienvenue sur notre site de gestion de projets</h1>
-        <p>Explorez nos fonctionnalités et découvrez comment notre solution peut vous aider.</p>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2024 Gestion de Projets | Tous droits réservés</p>
-    </footer>
-
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap and custom JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pzjw8f+ua7Kw1TIq0z1cDaXNX+RLO9Kw3yr8Fpqaz7pftFJEIjzD1HzUArctk9Zh" crossorigin="anonymous"></script>
 
+    <script>
+        // Adding a task to the list
+        document.getElementById('addTaskBtn').addEventListener('click', function () {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+
+            if (taskText !== "") {
+                const task = document.createElement('div');
+                task.classList.add('task');
+                task.setAttribute('draggable', 'true');
+                task.textContent = taskText;
+
+                task.addEventListener('dragstart', function (e) {
+                    e.dataTransfer.setData('text', taskText);
+                    task.classList.add('dragging');
+                });
+
+                task.addEventListener('dragend', function () {
+                    task.classList.remove('dragging');
+                });
+
+                // Adding the task to "To Do" column by default
+                document.getElementById('toDoList').appendChild(task);
+                taskInput.value = ""; // Clear input after adding
+            }
+        });
+
+        // Enable drag-and-drop functionality for task movement
+        const columns = document.querySelectorAll('.board-column');
+        columns.forEach(column => {
+            column.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                const draggingTask = document.querySelector('.task.dragging');
+                const closestTask = getClosestTask(e.clientY, column);
+                if (closestTask) {
+                    column.insertBefore(draggingTask, closestTask);
+                } else {
+                    column.appendChild(draggingTask);
+                }
+            });
+
+            column.addEventListener('drop', function (e) {
+                e.preventDefault();
+                const taskText = e.dataTransfer.getData('text');
+                const newTask = document.createElement('div');
+                newTask.classList.add('task');
+                newTask.textContent = taskText;
+
+                // Move task to the appropriate column
+                column.querySelector(`#${getColumnId(column)}List`).appendChild(newTask);
+            });
+        });
+
+        // Helper function to get closest task based on mouse position
+        function getClosestTask(y, column) {
+            const tasks = [...column.querySelectorAll('.task')];
+            return tasks.reduce((closest, task) => {
+                const box = task.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: task };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        // Helper function to get column ID
+        function getColumnId(column) {
+            if (column.id === 'toDoColumn') return 'toDo';
+            if (column.id === 'inProgressColumn') return 'inProgress';
+            if (column.id === 'completedColumn') return 'completed';
+        }
+    </script>
 </body>
 </html>
+
 
