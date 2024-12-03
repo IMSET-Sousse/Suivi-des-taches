@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing</title>
+  <link rel="stylesheet" href="tarif.css">
+
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="#" class="navbar-logo">WorkWave</a>
+      <div class="navbar-buttons">
+        <button class="navbar-button">Features</button>
+        <button class="navbar-button">Solutions</button>
+        <button class="navbar-button">Plans</button>
+        <button class="navbar-button">Pricing</button>
+        <button class="navbar-button">Resources</button>
+      </div>
+    </div> 
+
+
+    <div class="navbar-right">
+      <button class="navbar-button navbar-button-primary">Login</button>
+    </div>
+  </nav>
+
+  <div class="title-section">
+    <h1>WorkWave is your way</h1>
+    <p>Organize your tasks, collaborate with your team, and achieve your goals effortlessly.</p>
+  </div>
+ 
+</head>
+<body>
+  <div class="pricing-container">
+    <div class="pricing-card">
+      <h2 class="plan-name">Basic Plan</h2>
+      <p class="price">$10/month</p>
+      <p class="description">For small teams that need to manage work and scale collaboration..</p>
+      <button class="button">Get Started</button>
+    </div>
+
+    <div class="pricing-card">
+      <h2 class="plan-name">Pro Plan</h2>
+      <p class="price">$30/month</p>
+      <p class="description">For teams that need to track and visualize multiple projects in several ways, including boards, timelines, calendars, etc..</p>
+      <button class="button">Get Started</button>
+    </div>
+
+    <div class="pricing-card">
+      <h2 class="plan-name">Business Plan</h2>
+      <p class="price">$60/month</p>
+      <p class="description">For organizations that need to connect work across teams with more security and controls..</p>
+      <button class="button">Get Started</button>
+    </div>
+    <div class="comparison-section">
+      <h2 class="comparison-title">Compare Our Plans and Features</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Features</th>
+            <th>Basic</th>
+            <th>Pro</th>
+            <th>Business</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Task Management</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+          </tr>
+          <tr>
+            <td>Collaboration Tools</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+          </tr>
+          <tr>
+            <td>Advanced Reporting</td>
+            <td>✖</td>
+            <td>✔</td>
+            <td>✔</td>
+          </tr>
+          <tr>
+            <td>Priority Support</td>
+            <td>✖</td>
+            <td>✖</td>
+            <td>✔</td>
+          </tr>
+          <tr>
+            <td>Custom Workflows</td>
+            <td>✖</td>
+            <td>✔</td>
+            <td>✔</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    
+    <div class="faq-section">
+  <h2 class="faq-title">Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <button class="faq-question">What is included in the Basic plan?</button>
+    <div class="faq-answer">
+      <p>The Basic plan includes task management and collaboration tools to help small teams get started.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question">Can I upgrade my plan later?</button>
+    <div class="faq-answer">
+      <p>Yes, you can upgrade your plan at any time to access more features and tools.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question">Do you offer a free trial?</button>
+    <div class="faq-answer">
+      <p>We offer a 14-day free trial for the Pro plan so you can explore all its features.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question">What payment methods do you accept?</button>
+    <div class="faq-answer">
+      <p>We accept credit cards, PayPal, and bank transfers for annual subscriptions.</p>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const faqItem = button.parentElement;
+      faqItem.classList.toggle('active');
+    });
+  });
+</script>
+
+    
+</body>
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>WorkWave</h3>
+      <p>Helping you organize, collaborate, and achieve your goals effortlessly.</p>
+    </div>
+    
+    </div>
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Integrations</a></li>
+            <li><a href="#">Mobile App</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Developers</a></li>
+            <li><a href="#">Community</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 WorkWave, Inc. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+      </div>
+    </footer>
+
+</body>
+</html>
+
